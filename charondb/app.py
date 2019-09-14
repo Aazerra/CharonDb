@@ -116,7 +116,7 @@ class MySQLManager:
         try:
             self.cursor.execute(MySQLManager.DB_EXISTS %
                                 {"table_name": f"`{table_name}`", "where": where})
-            if self.cursor.fetchone().values():
+            if list(self.cursor.fetchone().values())[0]:
                 return True
             return False
         except pymysql.err.InterfaceError as e:
