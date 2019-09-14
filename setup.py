@@ -12,7 +12,7 @@ setup(name='charondb',
       author_email='taha@cerberusteam.ir',
       license='MIT',
       packages=['charondb'],
-      install_requires=["pymysql", "sqlite3"],
+      install_requires=["pymysql"],
       long_description=long_description,
       long_description_content_type="text/markdown",
       python_requires='>=3.6')
