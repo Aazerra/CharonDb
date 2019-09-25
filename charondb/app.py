@@ -106,10 +106,11 @@ class MySQLManager:
         try:
             self.cursor.execute(MySQLManager.DB_INSERT % {
                                 "table_name": f"`{table_name}`", "cols": cols, "values": values})
-            return self.cursor.fetchall()
+        except pymysql.err.IntegrityError as e:
+            raise DbManagerException('Duplicate entry ', str(e))
         except pymysql.err.InterfaceError as e:
-            raise DbManagerException(
-                'Connection to database is closed', str(e))
+            raise DbManagerException('Connection to database is closed', str(e))
+        self.commit()
 
     def exists(self, table_name, where):
         self.logger.debug('Check data is exists or not %s', where)
